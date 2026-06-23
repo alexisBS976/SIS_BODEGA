@@ -235,6 +235,13 @@ public partial class FrmSistema : Form
                 return;
             }
 
+            // Validación: Controla que la cantidad sea mayor a cero (evita valores negativos y cero)
+            if (cantidadIngresada <= 0)
+            {
+                MessageBox.Show("La cantidad debe ser mayor a cero.");
+                return;
+            }
+
             // Conversión del precio unitario desde el control y cálculo aritmético del subtotal de la línea
             decimal precioUnitario = Convert.ToDecimal(txtMonto.Text);
             decimal subtotal = precioUnitario * cantidadIngresada;
@@ -255,7 +262,6 @@ public partial class FrmSistema : Form
             txtMonto.Clear();
             cmbProducto.Focus();
         }
-
         /// <summary>
         /// Botón manual para consultar directamente el stock real de un producto por su nombre desde la interfaz de inventario.
         /// </summary>
