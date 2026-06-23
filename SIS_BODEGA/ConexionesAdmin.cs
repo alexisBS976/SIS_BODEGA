@@ -24,7 +24,7 @@ namespace SIS_BODEGA
             // Consulta SQL: Suma la columna 'total' de la tabla 'Ventas'
             // Filtra comparando solo la parte de la fecha (sin horas) con la fecha actual del servidor (GETDATE)
             // ISNULL asegura que si no hay ventas hoy, devuelva 0 en lugar de un valor NULL
-            string query = "SELECT ISNULL(SUM(total), 0) FROM Ventas WHERE CAST(fecha AS DATE) = CAST(GETDATE() AS DATE)";
+            string query = "SELECT ISNULL(SUM(total), 0) FROM Ventas WHERE CAST(fecha_venta AS DATE) = CAST(GETDATE() AS DATE)";
 
             // Se prepara el comando con la consulta y la conexión activa
             SqlCommand cmd = new SqlCommand(query, conexion);
