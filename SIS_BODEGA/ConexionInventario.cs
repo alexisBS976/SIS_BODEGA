@@ -2,39 +2,55 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Microsoft.Data.SqlClient; // Usar Microsoft.Data.SqlClient para usar la base de datos del programa
+using Microsoft.Data.SqlClient; // Usar Microsoft.Data.SqlClient para usar la base de datos local
 
 namespace SIS_BODEGA
 {
     public class ConexionInventario
     {
+        /// <summary>
+        /// Consulta el stock disponible de un producto específico mediante su nombre.
+        /// </summary>
+        /// <returns>La cantidad en stock del producto, o 0 si no se encuentra.</returns>
         public static int ConsultarStockActual(string nombreProducto)
         {
+            // Se inicializa y abre la conexión con la base de datos
             SqlConnection conexion = new SqlConnection(Conexion.Cadena);
             conexion.Open();
+
+            // Consulta SQL parametrizada para evitar inyecciones SQL y buscar por nombre
             string query = "SELECT * FROM Productos WHERE nombre = @nom";
             SqlCommand cmd = new SqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@nom", nombreProducto);
 
+            // Se ejecuta el lector para recorrer los resultados obtenidos
             SqlDataReader lector = cmd.ExecuteReader();
             int stock = 0;
 
+            // Si se encuentra el registro, se extrae el valor de la cuarta columna (índice 3), correspondiente al stock
             if (lector.Read())
             {
                 stock = Convert.ToInt32(lector[3]);
             }
 
+            // Cierre de lector y conexión para liberar recursos de la base de datos
             lector.Close();
             conexion.Close();
             return stock;
         }
 
+        /// <summary>
+        /// Incrementa el stock de un producto sumando una nueva cantidad al inventario existente.
+        /// </summary>
+        /// <param name="nombreProducto">Nombre del producto a surtir.</param>
+        /// <param name="cantidadNueva">Cantidad de unidades que se van a añadir.</param>
         public static void SurtirMercaderia(string nombreProducto, int cantidadNueva)
         {
+            // Se establece y abre la conexión a la base de datos
             SqlConnection conexion = new SqlConnection(Conexion.Cadena);
             conexion.Open();
 
-            // Primero leemos la fila para saber el stock actual y cómo se llama la columna mágicamente
+            // Consulta inicial para recuperar los datos actuales del producto antes de actualizar
             string querySelect = "SELECT * FROM Productos WHERE nombre = @nom";
             SqlCommand cmdSelect = new SqlCommand(querySelect, conexion);
             cmdSelect.Parameters.AddWithValue("@nom", nombreProducto);
@@ -43,29 +59,33 @@ namespace SIS_BODEGA
             int stockActual = 0;
             string nombreColumnaCantidad = "";
 
+            // Si el producto existe, obtiene dinámicamente el valor y el nombre de la columna en la posición de índice 3
             if (lector.Read())
             {
-                int posicionColumna = 3; 
+                int posicionColumna = 3;
                 stockActual = Convert.ToInt32(lector[posicionColumna]);
-                nombreColumnaCantidad = lector.GetName(posicionColumna); // Descubre el nombre real 
+                nombreColumnaCantidad = lector.GetName(posicionColumna); // Recupera el nombre real de la columna (ej. 'stock' o 'cantidad')
             }
-            lector.Close();
+            lector.Close(); // Es obligatorio cerrar el lector antes de ejecutar un nuevo comando en la misma conexión
 
-            // Si descubrió la columna, guarda la suma total de forma segura
+            // Si se logró identificar el nombre de la columna, se procede con la actualización del inventario
             if (!string.IsNullOrEmpty(nombreColumnaCantidad))
             {
+                // Calcula la suma acumulada del inventario
                 int nuevoStockTotal = stockActual + cantidadNueva;
 
+                // Consulta de actualización interpolando el nombre de la columna de manera dinámica
                 string queryUpdate = $"UPDATE Productos SET {nombreColumnaCantidad} = @nuevoStock WHERE nombre = @nom";
                 SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion);
                 cmdUpdate.Parameters.AddWithValue("@nuevoStock", nuevoStockTotal);
                 cmdUpdate.Parameters.AddWithValue("@nom", nombreProducto);
 
+                // Ejecuta la sentencia UPDATE que modifica el registro en la base de datos
                 cmdUpdate.ExecuteNonQuery();
             }
 
+            // Cierre final de la conexión a la base de datos
             conexion.Close();
         }
     }
-
 }

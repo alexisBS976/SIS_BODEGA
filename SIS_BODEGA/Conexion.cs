@@ -8,7 +8,6 @@ namespace SIS_BODEGA
     {
         /// <summary>
         /// Clase centralizada para gestionar la conexión a la base de datos local.
-        /// Al estar en una clase aparte, evitamos repetir la cadena de conexión en cada formulario.
         /// </summary>
         public static string Cadena =
        @"Data Source=(LocalDB)\MSSQLLocalDB;
