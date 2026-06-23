@@ -9,7 +9,6 @@ using Microsoft.Data.SqlClient; // Usar Microsoft.Data.SqlClient para usar la ba
 
 namespace SIS_BODEGA
 {
-    C#
 public partial class FrmSistema : Form
     {
         // Variables globales para rastrear el subtotal acumulado y la cantidad de artículos en la transacción actual
@@ -476,3 +475,4 @@ public partial class FrmSistema : Form
             conexion.Close();
         }
     }
+}
