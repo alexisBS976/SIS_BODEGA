@@ -84,5 +84,30 @@ namespace SIS_BODEGA
 
             return tabla;
         }
+
+        /// <summary>
+        /// Consulta el stock actual disponible de un producto específico mediante su nombre.
+        /// </summary>
+        /// <param name="nombreProducto">Nombre del producto a consultar.</param>
+        /// <returns>La cantidad de unidades disponibles en stock. Retorna -1 si el producto no existe.</returns>
+        public static int ObtenerStockProducto(string nombreProducto)
+        {
+            using (SqlConnection conexion = new SqlConnection(Conexion.Cadena))
+            {
+                conexion.Open();
+                string query = "SELECT stock_actual FROM Productos WHERE nombre = @nom";
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@nom", nombreProducto);
+                    object resultado = cmd.ExecuteScalar();
+
+                    if (resultado != null)
+                    {
+                        return Convert.ToInt32(resultado);
+                    }
+                }
+            }
+            return -1;
+        }
     }
 }

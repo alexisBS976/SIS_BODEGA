@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient; // Usar Microsoft.Data.SqlClient para usar la ba
 
 namespace SIS_BODEGA
 {
-public partial class FrmSistema : Form
+    public partial class FrmSistema : Form
     {
         // Variables globales para rastrear el subtotal acumulado y la cantidad de artículos en la transacción actual
         decimal acumuladorTotal = 0;
@@ -164,7 +164,7 @@ public partial class FrmSistema : Form
                     // Validación: Impide que el stock de inventario se reduzca a números negativos
                     if (nuevoStock < 0)
                     {
-                        MessageBox.Show("No hay suficiente stock.");
+                        MessageBox.Show("No hay suficiente stock en el inventario.");
                         return;
                     }
 
@@ -208,7 +208,8 @@ public partial class FrmSistema : Form
         }
 
         /// <summary>
-        /// Agrega el producto seleccionado con su respectiva cantidad al carrito virtual, actualizando los acumuladores globales.
+        /// Agrega el producto seleccionado con su respectiva cantidad al carrito virtual, verificando primero
+        /// si existe stock suficiente delegando la lógica a la clase ConexionVentas.
         /// </summary>
         private void bntAgregar_Click(object sender, EventArgs e)
         {
@@ -242,6 +243,22 @@ public partial class FrmSistema : Form
                 return;
             }
 
+            // Separación de responsabilidades: Consulta delegada a la clase ConexionVentas
+            string productoSeleccionado = cmbProducto.Text;
+            int stockDisponible = ConexionVentas.ObtenerStockProducto(productoSeleccionado);
+
+            if (stockDisponible == -1)
+            {
+                MessageBox.Show("El producto no fue encontrado en el inventario.");
+                return;
+            }
+
+            if (cantidadIngresada > stockDisponible)
+            {
+                MessageBox.Show("La cantidad ingresada supera el stock disponible en el inventario. Stock actual: " + stockDisponible);
+                return;
+            }
+
             // Conversión del precio unitario desde el control y cálculo aritmético del subtotal de la línea
             decimal precioUnitario = Convert.ToDecimal(txtMonto.Text);
             decimal subtotal = precioUnitario * cantidadIngresada;
@@ -262,6 +279,7 @@ public partial class FrmSistema : Form
             txtMonto.Clear();
             cmbProducto.Focus();
         }
+
         /// <summary>
         /// Botón manual para consultar directamente el stock real de un producto por su nombre desde la interfaz de inventario.
         /// </summary>
