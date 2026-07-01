@@ -181,18 +181,21 @@ namespace SIS_BODEGA
 
         private void bntAgregar_Click(object sender, EventArgs e)
         {
+            // Validación: Controla que se haya seleccionado un producto
             if (cmbProducto.SelectedIndex == -1)
             {
                 MessageBox.Show("Seleccione un producto.");
                 return;
             }
 
+            // Validación: Controla que el campo cantidad no esté vacío
             if (string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 MessageBox.Show("Ingrese una cantidad.");
                 return;
             }
 
+            // Validación: Comprueba que la cantidad ingresada sea un número entero
             int cantidadIngresada;
 
             if (!int.TryParse(txtCantidad.Text, out cantidadIngresada))
@@ -201,25 +204,60 @@ namespace SIS_BODEGA
                 return;
             }
 
+            // Se abre la conexión para consultar el stock disponible del producto
+            SqlConnection conexion = new SqlConnection(Conexion.Cadena);
+            conexion.Open();
+
+            // Consulta SQL para obtener el stock actual del producto seleccionado
+            string query = "SELECT stock_actual FROM Productos WHERE nombre = @prod";
+            SqlCommand cmd = new SqlCommand(query, conexion);
+            cmd.Parameters.AddWithValue("@prod", cmbProducto.Text);
+
+            object resultado = cmd.ExecuteScalar();
+
+            // Validación: Comprueba que el producto exista en la base de datos
+            if (resultado == null)
+            {
+                conexion.Close();
+                MessageBox.Show("Producto no encontrado.");
+                return;
+            }
+
+            // Se obtiene el stock disponible del producto
+            int stockActual = Convert.ToInt32(resultado);
+
+            conexion.Close();
+
+            // Validación: Impide vender una cantidad mayor al stock disponible
+            if (cantidadIngresada > stockActual)
+            {
+                MessageBox.Show("Stock insuficiente.\nDisponible: " + stockActual);
+                return;
+            }
+
+            // Obtiene el precio unitario del producto
             decimal precioUnitario = Convert.ToDecimal(txtMonto.Text);
 
+            // Calcula el subtotal de la venta
             decimal subtotal = precioUnitario * cantidadIngresada;
 
+            // Acumula el total y la cantidad de productos de la venta
             acumuladorTotal += subtotal;
             acumuladorCantidad += cantidadIngresada;
 
+            // Muestra un mensaje con el subtotal y el total acumulado
             MessageBox.Show(
                 "Producto agregado.\n" +
                 "Subtotal: S/. " + subtotal.ToString("N2") +
                 "\nTotal acumulado: S/. " + acumuladorTotal.ToString("N2")
             );
 
+            // Limpia los controles para registrar un nuevo producto
             cmbProducto.SelectedIndex = -1;
             txtCantidad.Clear();
             txtMonto.Clear();
             cmbProducto.Focus();
         }
-
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(cmbNombre.Text))
@@ -277,9 +315,12 @@ namespace SIS_BODEGA
 
         private void btnReporte_Click(object sender, EventArgs e)
         {
-            dgvReportes.DataSource = ConexionVentas.TraerReporte();
+            dgvReportes.DataSource = ConexionReportes.TraerReporte();
         }
-
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            dgvReportes.DataSource = ConexionReportes.DetalleReporte();
+        }
 
         private void btnVerProductos_Click(object sender, EventArgs e)
         {
@@ -401,7 +442,9 @@ namespace SIS_BODEGA
 
             conexion.Close();
 
-        
+
         }
+
+
     }
 }

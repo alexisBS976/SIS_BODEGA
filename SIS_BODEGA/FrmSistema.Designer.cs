@@ -39,6 +39,7 @@
             label3 = new Label();
             label2 = new Label();
             groupBox2 = new GroupBox();
+            btnDetalle = new Button();
             btnVerProductos = new Button();
             btnReporte = new Button();
             dgvReportes = new DataGridView();
@@ -51,21 +52,19 @@
             label9 = new Label();
             cmbNombre = new ComboBox();
             label5 = new Label();
-            groupBox4 = new GroupBox();
-            lblVuelto = new Label();
-            label6 = new Label();
-            btnVuelto = new Button();
-            btnMasVendidos = new Button();
-            btnCierre = new Button();
-            txtPagoCon = new TextBox();
-            label7 = new Label();
             btnBorrar = new Button();
             txtIdEliminar = new TextBox();
+            label7 = new Label();
+            txtPagoCon = new TextBox();
+            btnCierre = new Button();
+            btnMasVendidos = new Button();
+            btnVuelto = new Button();
+            label6 = new Label();
+            lblVuelto = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvReportes).BeginInit();
             groupBox3.SuspendLayout();
-            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -178,22 +177,41 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(lblVuelto);
+            groupBox2.Controls.Add(btnDetalle);
+            groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(btnVerProductos);
+            groupBox2.Controls.Add(btnVuelto);
             groupBox2.Controls.Add(btnReporte);
+            groupBox2.Controls.Add(btnMasVendidos);
             groupBox2.Controls.Add(dgvReportes);
+            groupBox2.Controls.Add(btnCierre);
+            groupBox2.Controls.Add(txtPagoCon);
+            groupBox2.Controls.Add(label7);
             groupBox2.Location = new Point(548, 99);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(574, 303);
+            groupBox2.Size = new Size(574, 624);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
-            groupBox2.Text = "REPORTES";
+            groupBox2.Text = "REPORTES Y ADMINISTRACION";
+            // 
+            // btnDetalle
+            // 
+            btnDetalle.BackColor = Color.Fuchsia;
+            btnDetalle.Location = new Point(204, 26);
+            btnDetalle.Name = "btnDetalle";
+            btnDetalle.Size = new Size(165, 32);
+            btnDetalle.TabIndex = 6;
+            btnDetalle.Text = "DETALLE VENTA";
+            btnDetalle.UseVisualStyleBackColor = false;
+            btnDetalle.Click += btnDetalle_Click;
             // 
             // btnVerProductos
             // 
             btnVerProductos.BackColor = Color.FromArgb(192, 192, 0);
             btnVerProductos.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             btnVerProductos.ForeColor = SystemColors.ButtonFace;
-            btnVerProductos.Location = new Point(317, 18);
+            btnVerProductos.Location = new Point(375, 18);
             btnVerProductos.Name = "btnVerProductos";
             btnVerProductos.Size = new Size(193, 40);
             btnVerProductos.TabIndex = 17;
@@ -206,7 +224,7 @@
             btnReporte.BackColor = Color.FromArgb(128, 64, 0);
             btnReporte.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             btnReporte.ForeColor = SystemColors.ButtonFace;
-            btnReporte.Location = new Point(44, 18);
+            btnReporte.Location = new Point(5, 21);
             btnReporte.Name = "btnReporte";
             btnReporte.Size = new Size(193, 40);
             btnReporte.TabIndex = 16;
@@ -220,7 +238,7 @@
             dgvReportes.Location = new Point(22, 67);
             dgvReportes.Name = "dgvReportes";
             dgvReportes.RowHeadersWidth = 51;
-            dgvReportes.Size = new Size(530, 216);
+            dgvReportes.Size = new Size(530, 287);
             dgvReportes.TabIndex = 14;
             // 
             // groupBox3
@@ -319,95 +337,6 @@
             label5.TabIndex = 9;
             label5.Text = "Producto:";
             // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(lblVuelto);
-            groupBox4.Controls.Add(label6);
-            groupBox4.Controls.Add(btnVuelto);
-            groupBox4.Controls.Add(btnMasVendidos);
-            groupBox4.Controls.Add(btnCierre);
-            groupBox4.Controls.Add(txtPagoCon);
-            groupBox4.Controls.Add(label7);
-            groupBox4.Location = new Point(548, 433);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(552, 288);
-            groupBox4.TabIndex = 2;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "ADMINISTRACION";
-            // 
-            // lblVuelto
-            // 
-            lblVuelto.AutoSize = true;
-            lblVuelto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblVuelto.Location = new Point(105, 227);
-            lblVuelto.Name = "lblVuelto";
-            lblVuelto.Size = new Size(0, 28);
-            lblVuelto.TabIndex = 16;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(33, 234);
-            label6.Name = "label6";
-            label6.Size = new Size(59, 20);
-            label6.TabIndex = 15;
-            label6.Text = "Vuelto:";
-            // 
-            // btnVuelto
-            // 
-            btnVuelto.BackColor = Color.FromArgb(255, 255, 192);
-            btnVuelto.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVuelto.Location = new Point(344, 186);
-            btnVuelto.Name = "btnVuelto";
-            btnVuelto.Size = new Size(166, 76);
-            btnVuelto.TabIndex = 14;
-            btnVuelto.Text = "CALCULAR VUELTO";
-            btnVuelto.UseVisualStyleBackColor = false;
-            btnVuelto.Click += btnVuelto_Click;
-            // 
-            // btnMasVendidos
-            // 
-            btnMasVendidos.BackColor = Color.OliveDrab;
-            btnMasVendidos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnMasVendidos.Location = new Point(295, 41);
-            btnMasVendidos.Name = "btnMasVendidos";
-            btnMasVendidos.Size = new Size(191, 89);
-            btnMasVendidos.TabIndex = 13;
-            btnMasVendidos.Text = "TOP PRODUCTOS MÁS VENDIDOS";
-            btnMasVendidos.UseVisualStyleBackColor = false;
-            btnMasVendidos.Click += btnMasVendidos_Click;
-            // 
-            // btnCierre
-            // 
-            btnCierre.BackColor = Color.Lime;
-            btnCierre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCierre.Location = new Point(33, 41);
-            btnCierre.Name = "btnCierre";
-            btnCierre.Size = new Size(191, 89);
-            btnCierre.TabIndex = 12;
-            btnCierre.Text = "CIERRE DE CAJA";
-            btnCierre.UseVisualStyleBackColor = false;
-            btnCierre.Click += btnCierre_Click;
-            // 
-            // txtPagoCon
-            // 
-            txtPagoCon.Location = new Point(105, 184);
-            txtPagoCon.Name = "txtPagoCon";
-            txtPagoCon.Size = new Size(192, 27);
-            txtPagoCon.TabIndex = 11;
-            txtPagoCon.TextChanged += txtPagoCon_TextChanged;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(22, 187);
-            label7.Name = "label7";
-            label7.Size = new Size(77, 20);
-            label7.TabIndex = 10;
-            label7.Text = "Pago con:";
-            // 
             // btnBorrar
             // 
             btnBorrar.Location = new Point(930, 39);
@@ -425,6 +354,79 @@
             txtIdEliminar.Size = new Size(125, 27);
             txtIdEliminar.TabIndex = 5;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Location = new Point(46, 534);
+            label7.Name = "label7";
+            label7.Size = new Size(77, 20);
+            label7.TabIndex = 10;
+            label7.Text = "Pago con:";
+            // 
+            // txtPagoCon
+            // 
+            txtPagoCon.Location = new Point(129, 531);
+            txtPagoCon.Name = "txtPagoCon";
+            txtPagoCon.Size = new Size(192, 27);
+            txtPagoCon.TabIndex = 11;
+            txtPagoCon.TextChanged += txtPagoCon_TextChanged;
+            // 
+            // btnCierre
+            // 
+            btnCierre.BackColor = Color.Lime;
+            btnCierre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCierre.Location = new Point(46, 362);
+            btnCierre.Name = "btnCierre";
+            btnCierre.Size = new Size(191, 89);
+            btnCierre.TabIndex = 12;
+            btnCierre.Text = "CIERRE DE CAJA";
+            btnCierre.UseVisualStyleBackColor = false;
+            btnCierre.Click += btnCierre_Click;
+            // 
+            // btnMasVendidos
+            // 
+            btnMasVendidos.BackColor = Color.OliveDrab;
+            btnMasVendidos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMasVendidos.Location = new Point(343, 360);
+            btnMasVendidos.Name = "btnMasVendidos";
+            btnMasVendidos.Size = new Size(191, 89);
+            btnMasVendidos.TabIndex = 13;
+            btnMasVendidos.Text = "TOP PRODUCTOS MÁS VENDIDOS";
+            btnMasVendidos.UseVisualStyleBackColor = false;
+            btnMasVendidos.Click += btnMasVendidos_Click;
+            // 
+            // btnVuelto
+            // 
+            btnVuelto.BackColor = Color.FromArgb(255, 255, 192);
+            btnVuelto.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVuelto.Location = new Point(368, 533);
+            btnVuelto.Name = "btnVuelto";
+            btnVuelto.Size = new Size(166, 76);
+            btnVuelto.TabIndex = 14;
+            btnVuelto.Text = "CALCULAR VUELTO";
+            btnVuelto.UseVisualStyleBackColor = false;
+            btnVuelto.Click += btnVuelto_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(57, 581);
+            label6.Name = "label6";
+            label6.Size = new Size(59, 20);
+            label6.TabIndex = 15;
+            label6.Text = "Vuelto:";
+            // 
+            // lblVuelto
+            // 
+            lblVuelto.AutoSize = true;
+            lblVuelto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblVuelto.Location = new Point(129, 574);
+            lblVuelto.Name = "lblVuelto";
+            lblVuelto.Size = new Size(0, 28);
+            lblVuelto.TabIndex = 16;
+            // 
             // FrmSistema
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -432,7 +434,6 @@
             ClientSize = new Size(1134, 735);
             Controls.Add(txtIdEliminar);
             Controls.Add(btnBorrar);
-            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -446,11 +447,10 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvReportes).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -461,7 +461,6 @@
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
-        private GroupBox groupBox4;
         private ComboBox cmbProducto;
         private TextBox txtMonto;
         private TextBox txtCantidad;
@@ -469,8 +468,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
-        private Label label7;
-        private TextBox txtPagoCon;
         private DataGridView dgvReportes;
         private Button bntAgregar;
         private Button btnInvModificar;
@@ -483,12 +480,15 @@
         private Label label8;
         private Button btnReporte;
         private Button btnVerProductos;
-        private Button btnMasVendidos;
-        private Button btnCierre;
-        private Button btnVuelto;
-        private Label lblVuelto;
-        private Label label6;
         private Button btnBorrar;
         private TextBox txtIdEliminar;
+        private Button btnDetalle;
+        private Label lblVuelto;
+        private Label label6;
+        private Button btnVuelto;
+        private Button btnMasVendidos;
+        private Button btnCierre;
+        private TextBox txtPagoCon;
+        private Label label7;
     }
 }

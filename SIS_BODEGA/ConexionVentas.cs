@@ -37,21 +37,6 @@ namespace SIS_BODEGA
 
             cmd.ExecuteNonQuery();
             conexion.Close();
-        }
-
-        // Trae toda la tabla de ventas para el reporte
-        public static DataTable TraerReporte()
-        {
-            SqlConnection conexion = new SqlConnection(Conexion.Cadena);
-            conexion.Open();
-            string query = "SELECT id_venta, fecha_venta, total, cantidad_productos FROM Ventas";
-            SqlCommand cmd = new SqlCommand(query, conexion);
-            SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
-            DataTable tabla = new DataTable();
-            adaptador.Fill(tabla);
-
-            conexion.Close();
-            return tabla;
-        }
+        }   
     }
 }
